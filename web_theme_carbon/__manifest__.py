@@ -6,7 +6,7 @@
     "version": "18.0.1.0.0",
     "category": "Themes/Backend",
     "author": "Avunu LLC",
-    "website": "https://github.com/Avunu/web_theme_carbon",
+    "website": "https://github.com/Avunu/web-addons",
     # AGPL-3 is inherited from web_dark_mode (AGPL-3).
     # web_responsive is LGPL-3 and does not itself force this.
     "license": "AGPL-3",
