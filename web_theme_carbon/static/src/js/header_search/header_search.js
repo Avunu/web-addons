@@ -23,10 +23,10 @@
  * renders `systrayItems` straight from the registry, so no template inheritance
  * is needed and there is nothing here to drift when the navbar markup changes.
  */
-import { Component } from "@odoo/owl";
-import { registry } from "@web/core/registry";
-import { useService } from "@web/core/utils/hooks";
-import { _t } from "@web/core/l10n/translation";
+import {Component} from "@odoo/owl";
+import {registry} from "@web/core/registry";
+import {useService} from "@web/core/utils/hooks";
+import {_t} from "@web/core/l10n/translation";
 
 export class CarbonHeaderSearch extends Component {
     static template = "web_theme_carbon.HeaderSearch";
@@ -44,12 +44,14 @@ export class CarbonHeaderSearch extends Component {
 
     onClick() {
         // "/" selects the menus namespace; see the note at the top.
-        this.command.openMainPalette({ searchValue: "/" });
+        this.command.openMainPalette({searchValue: "/"});
     }
 }
 
-export const systrayItem = { Component: CarbonHeaderSearch };
+export const systrayItem = {Component: CarbonHeaderSearch};
 
 // The navbar reverses the registry order, so a HIGH sequence renders leftmost.
 // Carbon puts search first among the header's global actions.
-registry.category("systray").add("web_theme_carbon.search", systrayItem, { sequence: 100 });
+registry
+    .category("systray")
+    .add("web_theme_carbon.search", systrayItem, {sequence: 100});

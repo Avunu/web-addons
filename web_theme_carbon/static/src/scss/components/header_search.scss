@@ -12,14 +12,14 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    min-width: 48px;          // Carbon header action is a 48px square
+    min-width: 48px; // Carbon header action is a 48px square
     padding: 0;
     border-radius: 0;
     background: transparent;
     color: var(--cds-shell-text-secondary, #c6c6c6);
 
     .oi {
-        font-size: 1.125rem;   // 20px, Carbon's header icon size
+        font-size: 1.125rem; // 20px, Carbon's header icon size
     }
 
     &:hover {

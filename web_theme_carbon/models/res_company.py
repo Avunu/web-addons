@@ -103,7 +103,7 @@ def shift(value, amount):
     hue, lightness, saturation = rgb_to_hls(*rgb)
     lightness = min(1.0, max(0.0, lightness - amount))
     red, green, blue = hls_to_rgb(hue, lightness, saturation)
-    return "#%02x%02x%02x" % (int(red * 255), int(green * 255), int(blue * 255))
+    return f"#{int(red * 255):02x}{int(green * 255):02x}{int(blue * 255):02x}"
 
 
 def blend(colour, towards, amount):
@@ -112,7 +112,7 @@ def blend(colour, towards, amount):
     if a is None or b is None:
         return colour
     mixed = [a[i] + (b[i] - a[i]) * amount for i in range(3)]
-    return "#%02x%02x%02x" % tuple(int(round(c * 255)) for c in mixed)
+    return "#{:02x}{:02x}{:02x}".format(*(int(round(c * 255)) for c in mixed))
 
 
 def rgb_triple(colour):
@@ -220,11 +220,17 @@ class ResCompany(models.Model):
 
         return {
             "brand": brand,
-            "brand_hover": base["brand_hover"] if is_carbon_default else shift(brand, 0.06 * direction),
-            "brand_active": base["brand_active"] if is_carbon_default else shift(brand, 0.16 * direction),
+            "brand_hover": base["brand_hover"]
+            if is_carbon_default
+            else shift(brand, 0.06 * direction),
+            "brand_active": base["brand_active"]
+            if is_carbon_default
+            else shift(brand, 0.16 * direction),
             "on_brand": base["on_brand"] if is_carbon_default else readable_on(brand),
             "link": brand,
-            "link_hover": base["link_hover"] if is_carbon_default else shift(brand, 0.10 * direction),
+            "link_hover": base["link_hover"]
+            if is_carbon_default
+            else shift(brand, 0.10 * direction),
             "brand_rgb": rgb_triple(brand) or "15, 98, 254",
             # Bootstrap 5.3's "subtle" family, which it tints from $primary at
             # compile time and re-exposes on :root.
@@ -233,28 +239,37 @@ class ResCompany(models.Model):
             "brand_text_emphasis": shift(brand, 0.2),
             "link_rgb": rgb_triple(brand) or "15, 98, 254",
             "link_hover_rgb": (
-                rgb_triple(base["link_hover"] if is_carbon_default else shift(brand, 0.10 * direction))
+                rgb_triple(
+                    base["link_hover"]
+                    if is_carbon_default
+                    else shift(brand, 0.10 * direction)
+                )
                 or "0, 67, 206"
             ),
             "header_bg": header_bg,
-            "header_border": shift(header_bg, -0.08) if header_bg != CARBON_SHELL["bg"] else CARBON_SHELL["border"],
+            "header_border": shift(header_bg, -0.08)
+            if header_bg != CARBON_SHELL["bg"]
+            else CARBON_SHELL["border"],
             "header_text": header_text,
             # Carbon's shell lightens on hover because it is near-black. A
             # mid-tone or light header has to go the other way, or "hover"
             # would mean "wash out".
             "header_hover": (
-                CARBON_SHELL["hover"] if is_default_shell
+                CARBON_SHELL["hover"]
+                if is_default_shell
                 else shift(header_bg, -0.06 if (luma(header_bg) or 0) < 0.5 else 0.06)
             ),
             "header_active": (
-                CARBON_SHELL["active"] if is_default_shell
+                CARBON_SHELL["active"]
+                if is_default_shell
                 else shift(header_bg, -0.10 if (luma(header_bg) or 0) < 0.5 else 0.10)
             ),
             # The de-emphasised label colour. Carbon uses gray-30 on its own
             # shell; on a branded header the equivalent is the header's text
             # pulled a little way back towards the header itself.
             "header_text_secondary": (
-                CARBON_SHELL["text_secondary"] if is_default_shell
+                CARBON_SHELL["text_secondary"]
+                if is_default_shell
                 else blend(header_text, header_bg, 0.25)
             ),
         }
@@ -447,7 +462,7 @@ class ResCompany(models.Model):
 /* The header bar itself is the one declaration that has to be plain: Odoo
    compiles `.o_main_navbar { background: $o-navbar-background }` with no
    custom property behind it.
-   
+
    Everything INSIDE the bar does have one. Odoo routes every navbar entry
    through --NavBar-* (navbar.scss), so re-pointing those is enough and no
    selector has to be enumerated. Without them the entries keep their compiled
@@ -476,6 +491,6 @@ class ResCompany(models.Model):
     --cds-shell-hover: %(header_hover)s;
     --cds-shell-active: %(header_active)s;
 }
-"""
+"""  # noqa: UP031  # Markup's % escapes its values; an f-string would not.
             % dict(palette, name=company.name)
         )

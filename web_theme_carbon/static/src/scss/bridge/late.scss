@@ -13,7 +13,7 @@
 
 // == Odoo variables declared without !default ================================
 // These are plain re-assignments; there is nothing to lose to.
-$o-search-panel-width: 256px;          // 16rem, Carbon side-nav
+$o-search-panel-width: 256px; // 16rem, Carbon side-nav
 $o-search-panel-font-size: 1em;
 $o-search-bar-facet-value-width: 16rem;
 // Collapses the statusbar's clip-path chevrons into plain rectangles, which is
@@ -31,7 +31,7 @@ $o-field-translate-padding: 32px;
 // web_responsive/static/src/legacy/scss/form_variable.scss also hard-assigns
 // these two, and we load after it.
 $o-form-renderer-max-width: 2600px;
-$o-form-view-sheet-max-width: 1584px;  // Carbon's max grid width
+$o-form-view-sheet-max-width: 1584px; // Carbon's max grid width
 
 // Set directly rather than letting secondary_variables.scss derive it as
 // invert($o-view-background-color, 10%), which on a white sheet is near-black.
@@ -44,7 +44,7 @@ $border-color: $c-border-subtle !default;
 // rules baked into OWL templates that no selector of ours can outrank.
 $border-radius-xl: 0 !default;
 $border-radius-xxl: 0 !default;
-$border-radius-pill: 50rem !default;   // tags and avatars stay round
+$border-radius-pill: 50rem !default; // tags and avatars stay round
 
 // Carbon's single elevation, applied everywhere. $box-shadow-lg is flattened
 // on purpose: .shadow-lg is hardcoded on notifications and search facets.
