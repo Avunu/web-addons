@@ -17,8 +17,7 @@ dependencies = [
     # >>> odoo-nix: install set (managed from modules.txt) >>>
     "odoo",
     "packaging",
-    "odoo-addon-web_responsive",
-    "odoo-addon-web_dark_mode",
+    "odoo-addon-web_theme_carbon",
     # <<< odoo-nix: install set <<<
 ]
 
@@ -27,7 +26,6 @@ dependencies = [
 # relock leaves this block alone.
 dev = [
     "debugpy",
-    "ruff",
     # Odoo's --dev=reload watcher needs a filesystem watcher it does not declare.
     "watchdog",
     # Odoo's test runner imports freezegun, and browser tours need
@@ -89,6 +87,7 @@ constraint-dependencies = ["setuptools<81"]
     "odoo-addon-web_session_auto_close" = { path = "../.odoo-nix/modules/web/web_session_auto_close" }
     "odoo-addon-web_sort_menu" = { path = "../.odoo-nix/modules/web/web_sort_menu" }
     "odoo-addon-web_systray_button_init_action" = { path = "../.odoo-nix/modules/web/web_systray_button_init_action" }
+    "odoo-addon-web_theme_carbon" = { path = "../web_theme_carbon", editable = true }
     "odoo-addon-web_theme_classic" = { path = "../.odoo-nix/modules/web/web_theme_classic" }
     "odoo-addon-web_time_range_menu_custom" = { path = "../.odoo-nix/modules/web/web_time_range_menu_custom" }
     "odoo-addon-web_timeline" = { path = "../.odoo-nix/modules/web/web_timeline" }
@@ -128,10 +127,18 @@ packages = []
 # >>> odoo-nix: sdist build deps (managed) >>>
 "docopt" = ["setuptools"]
 "odoo" = ["setuptools"]
-"odoo-addon-web-dark-mode" = ["setuptools"]
-"odoo-addon-web-responsive" = ["setuptools"]
 "ofxparse" = ["setuptools"]
 "python-ldap" = ["setuptools"]
 "rjsmin" = ["setuptools"]
 "vobject" = ["setuptools"]
 # <<< odoo-nix: sdist build deps (managed) <<<
+
+[tool.odoo-nix]
+schema = 1
+profile = "github:Avunu/odoo-standards-profile/v1"
+
+[tool.odoo-nix.icons]
+src-icon = "assets/icons/web-addons.png"
+
+[tool.odoo-nix.js-xml]
+exclude = ["web_theme_carbon/tools/"]

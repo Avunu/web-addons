@@ -17,6 +17,7 @@ from the SCSS sources means guessing across nested selectors and mixins, and
 every static version of the check produced false alarms that the compiled
 bundle disproved. Here the answer is unambiguous.
 """
+
 import re
 
 from odoo.tests.common import TransactionCase, tagged
@@ -24,24 +25,40 @@ from odoo.tests.common import TransactionCase, tagged
 
 @tagged("post_install", "-at_install")
 class TestCarbonCascade(TransactionCase):
-
     # (bundle, class, property, marker that identifies OUR value)
     EXPECTATIONS = [
         ("web.assets_backend", "o_kanban_record", "background-color", "--cds-"),
         ("web.assets_backend", "o_grid_apps_menu", "background-color", "--cds-"),
-        ("web.assets_backend", "o_tag_color_1", "--background-color", "tag-background-"),
+        (
+            "web.assets_backend",
+            "o_tag_color_1",
+            "--background-color",
+            "tag-background-",
+        ),
         ("web.assets_backend", "o_last_breadcrumb_item", "font-size", "1.25rem"),
         ("web.assets_backend", "o_notification", "background-color", "--cds-"),
         ("web.assets_web_dark", "o_kanban_record", "background-color", "--cds-"),
         # Bootstrap generates text-bg-* as a UTILITY, so it is !important and
         # neither specificity nor load order can beat it -- our rule has to
         # match !important, and this proves it still does.
-        ("web.assets_backend", "text-bg-success", "background-color", "tag-background-green"),
-        ("web.assets_web_dark", "text-bg-success", "background-color", "tag-background-green"),
+        (
+            "web.assets_backend",
+            "text-bg-success",
+            "background-color",
+            "tag-background-green",
+        ),
+        (
+            "web.assets_web_dark",
+            "text-bg-success",
+            "background-color",
+            "tag-background-green",
+        ),
     ]
 
     def _bundle_css(self, name):
-        attachment = self.env["ir.qweb"]._get_asset_bundle(name, css=True, js=False).css()
+        attachment = (
+            self.env["ir.qweb"]._get_asset_bundle(name, css=True, js=False).css()
+        )
         raw = attachment.raw if hasattr(attachment, "raw") else attachment[0].raw
         return raw.decode("utf-8", "replace")
 
@@ -72,7 +89,7 @@ class TestCarbonCascade(TransactionCase):
             if not self._is_subject(selector, cls):
                 continue
             for match in re.finditer(
-                r"(?:^|;)\s*%s\s*:\s*([^;]+)" % re.escape(prop), body
+                rf"(?:^|;)\s*{re.escape(prop)}\s*:\s*([^;]+)", body
             ):
                 found.append(match.group(1).strip())
         if not found:

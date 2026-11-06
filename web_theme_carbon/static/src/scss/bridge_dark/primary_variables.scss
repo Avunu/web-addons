@@ -26,21 +26,21 @@ $o-webclient-color-scheme: dark;
 // them poisons those and forces inverting the BS functions too (which is
 // exactly what web_dark_mode's bs_functions_overrides.dark.scss already does,
 // and it rides along for free). Remapping the ramp covers the real usage.
-$o-gray-100: $c-gray-100;   // #161616 -- Odoo's "lightest" is now the canvas
-$o-gray-200: $c-gray-90;    // #262626
-$o-gray-300: $c-gray-80;    // #393939
-$o-gray-400: $c-gray-70;    // #525252
-$o-gray-500: $c-gray-60;    // #6f6f6f
-$o-gray-600: $c-gray-50;    // #8d8d8d
-$o-gray-700: $c-gray-40;    // #a8a8a8
-$o-gray-800: $c-gray-30;    // #c6c6c6
-$o-gray-900: $c-gray-10;    // #f4f4f4 -- Odoo's "darkest" is now the text
+$o-gray-100: $c-gray-100; // #161616 -- Odoo's "lightest" is now the canvas
+$o-gray-200: $c-gray-90; // #262626
+$o-gray-300: $c-gray-80; // #393939
+$o-gray-400: $c-gray-70; // #525252
+$o-gray-500: $c-gray-60; // #6f6f6f
+$o-gray-600: $c-gray-50; // #8d8d8d
+$o-gray-700: $c-gray-40; // #a8a8a8
+$o-gray-800: $c-gray-30; // #c6c6c6
+$o-gray-900: $c-gray-10; // #f4f4f4 -- Odoo's "darkest" is now the text
 
 // == Brand and status (g100 variants) ========================================
-$o-community-color: $c-interactive;      // Blue 50 #4589ff
+$o-community-color: $c-interactive; // Blue 50 #4589ff
 $o-enterprise-color: $c-interactive;
 $o-enterprise-action-color: $c-interactive;
-$o-brand-odoo: $c-shell-bg;              // shell is g100 in both themes
+$o-brand-odoo: $c-shell-bg; // shell is g100 in both themes
 $o-brand-primary: $c-interactive;
 $o-brand-secondary: $c-text-secondary;
 $o-brand-lightsecondary: $c-layer-02;
@@ -52,12 +52,12 @@ $o-danger: $c-support-error;
 
 // == Text and surfaces =======================================================
 // Still a 6-digit hex: $o-caret-down str-slice()s this one.
-$o-main-text-color: $c-text-primary;     // #f4f4f4
+$o-main-text-color: $c-text-primary; // #f4f4f4
 $o-main-headings-color: $c-text-primary;
-$o-main-link-color: $c-link-primary;     // #78a9ff
+$o-main-link-color: $c-link-primary; // #78a9ff
 $o-main-code-color: $c-support-error;
 
-$o-view-background-color: $c-layer-01;   // #262626
+$o-view-background-color: $c-layer-01; // #262626
 // Set explicitly, not left to secondary_variables.scss to derive from
 // $o-gray-100. web_dark_mode's primary_variables.dark.scss is spliced in
 // BEFORE this file and does `$o-webclient-background-color: $o-gray-100
@@ -110,47 +110,95 @@ $o-burger-topbar-color: $c-shell-text;
 // brightens), and $c-button-* were rebound by the dark token file.
 $o-btns-bs-override: (
     "primary": (
-        background: $c-button-primary, border: $c-button-primary, color: $c-text-on-color,
-        hover-background: $c-button-primary-hover, hover-border: $c-button-primary-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-primary-active, active-border: $c-button-primary-active, active-color: $c-text-on-color,
+        background: $c-button-primary,
+        border: $c-button-primary,
+        color: $c-text-on-color,
+        hover-background: $c-button-primary-hover,
+        hover-border: $c-button-primary-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-primary-active,
+        active-border: $c-button-primary-active,
+        active-color: $c-text-on-color,
     ),
     "secondary": (
-        background: $c-layer-01, border: $c-border-strong-01, color: $c-text-primary,
-        hover-background: $c-layer-hover-01, hover-border: $c-border-strong-01, hover-color: $c-text-primary,
-        active-background: $c-layer-selected-01, active-border: $c-border-interactive, active-color: $c-text-primary,
+        background: $c-layer-01,
+        border: $c-border-strong-01,
+        color: $c-text-primary,
+        hover-background: $c-layer-hover-01,
+        hover-border: $c-border-strong-01,
+        hover-color: $c-text-primary,
+        active-background: $c-layer-selected-01,
+        active-border: $c-border-interactive,
+        active-color: $c-text-primary,
     ),
     "dark": (
-        background: $c-button-secondary, border: $c-button-secondary, color: $c-text-on-color,
-        hover-background: $c-button-secondary-hover, hover-border: $c-button-secondary-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-secondary-active, active-border: $c-button-secondary-active, active-color: $c-text-on-color,
+        background: $c-button-secondary,
+        border: $c-button-secondary,
+        color: $c-text-on-color,
+        hover-background: $c-button-secondary-hover,
+        hover-border: $c-button-secondary-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-secondary-active,
+        active-border: $c-button-secondary-active,
+        active-color: $c-text-on-color,
     ),
     "light": (
-        background: transparent, border: transparent, color: $c-link-primary,
-        hover-background: $c-layer-hover-01, hover-border: transparent, hover-color: $c-link-primary,
-        active-background: $c-layer-selected-01, active-border: transparent, active-color: $c-link-primary,
+        background: transparent,
+        border: transparent,
+        color: $c-link-primary,
+        hover-background: $c-layer-hover-01,
+        hover-border: transparent,
+        hover-color: $c-link-primary,
+        active-background: $c-layer-selected-01,
+        active-border: transparent,
+        active-color: $c-link-primary,
     ),
     "danger": (
-        background: $c-button-danger-primary, border: $c-button-danger-primary, color: $c-text-on-color,
-        hover-background: $c-button-danger-hover, hover-border: $c-button-danger-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-danger-active, active-border: $c-button-danger-active, active-color: $c-text-on-color,
+        background: $c-button-danger-primary,
+        border: $c-button-danger-primary,
+        color: $c-text-on-color,
+        hover-background: $c-button-danger-hover,
+        hover-border: $c-button-danger-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-danger-active,
+        active-border: $c-button-danger-active,
+        active-color: $c-text-on-color,
     ),
 );
 
 $o-btns-bs-outline-override: (
     "primary": (
-        background: transparent, border: $c-button-tertiary, color: $c-button-tertiary,
-        hover-background: $c-button-primary-hover, hover-border: $c-button-primary-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-primary-active, active-border: $c-button-primary-active, active-color: $c-text-on-color,
+        background: transparent,
+        border: $c-button-tertiary,
+        color: $c-button-tertiary,
+        hover-background: $c-button-primary-hover,
+        hover-border: $c-button-primary-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-primary-active,
+        active-border: $c-button-primary-active,
+        active-color: $c-text-on-color,
     ),
     "secondary": (
-        background: transparent, border: $c-border-subtle, color: $c-text-primary,
-        hover-background: $c-layer-hover-01, hover-border: $c-border-subtle, hover-color: $c-text-primary,
-        active-background: $c-layer-selected-01, active-border: $c-border-interactive, active-color: $c-text-primary,
+        background: transparent,
+        border: $c-border-subtle,
+        color: $c-text-primary,
+        hover-background: $c-layer-hover-01,
+        hover-border: $c-border-subtle,
+        hover-color: $c-text-primary,
+        active-background: $c-layer-selected-01,
+        active-border: $c-border-interactive,
+        active-color: $c-text-primary,
     ),
     "danger": (
-        background: transparent, border: $c-button-danger-primary, color: $c-button-danger-primary,
-        hover-background: $c-button-danger-hover, hover-border: $c-button-danger-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-danger-active, active-border: $c-button-danger-active, active-color: $c-text-on-color,
+        background: transparent,
+        border: $c-button-danger-primary,
+        color: $c-button-danger-primary,
+        hover-background: $c-button-danger-hover,
+        hover-border: $c-button-danger-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-danger-active,
+        active-border: $c-button-danger-active,
+        active-color: $c-text-on-color,
     ),
 );
 

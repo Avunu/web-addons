@@ -5,9 +5,9 @@
 from unittest.mock import patch
 
 from odoo.tests.common import TransactionCase, tagged
+from odoo.tools import mute_logger
 
 from ..models.res_company import (
-    rgb_triple,
     CARBON_DARK,
     CARBON_LIGHT,
     CARBON_SHELL,
@@ -15,13 +15,13 @@ from ..models.res_company import (
     luma,
     parse_hex,
     readable_on,
+    rgb_triple,
     shift,
 )
 
 
 @tagged("post_install", "-at_install")
 class TestCarbonBrand(TransactionCase):
-
     def setUp(self):
         super().setUp()
         self.company = self.env["res.company"].create({"name": "Carbon Brand Co"})
@@ -39,7 +39,7 @@ class TestCarbonBrand(TransactionCase):
             self.assertIsNone(parse_hex(value))
 
     def test_shift_darkens_and_lightens(self):
-        self.assertLess(shift("#808080", 0.2), "#808080")   # darker hex sorts lower
+        self.assertLess(shift("#808080", 0.2), "#808080")  # darker hex sorts lower
         self.assertGreater(shift("#808080", -0.2), "#808080")
         # and never runs off either end
         self.assertEqual(shift("#000000", 0.5), "#000000")
@@ -179,7 +179,7 @@ class TestCarbonBrand(TransactionCase):
         self.assertLess(luma(light_hover), luma("#f4f4f4"))
 
     def test_header_defaults_stay_carbon(self):
-        self.company.carbon_brand_light = "#009d9a"   # customised, header not
+        self.company.carbon_brand_light = "#009d9a"  # customised, header not
         palette = self.company._carbon_palette()
         self.assertEqual(palette["header_bg"], CARBON_SHELL["bg"])
         self.assertEqual(palette["header_hover"], CARBON_SHELL["hover"])
@@ -197,8 +197,11 @@ class TestCarbonBrand(TransactionCase):
         with a traceback -- which is what happened while developing it.
         """
         self.company.carbon_brand_light = "#009d9a"
-        with patch.object(
-            type(self.company), "_carbon_palette", side_effect=ValueError("boom")
+        with (
+            patch.object(
+                type(self.company), "_carbon_palette", side_effect=ValueError("boom")
+            ),
+            mute_logger("odoo.addons.web_theme_carbon.models.res_company"),
         ):
             self.assertEqual(self._style(), "")
 
@@ -264,9 +267,9 @@ class TestCarbonBrand(TransactionCase):
         self.company.carbon_brand_light = "#cd4c4c"
         css = self._style()
         for selector in (
-            "--o-statusbar-border-active",              # status tracker ::before
-            ".o_searchview:focus-within",               # search bar outline
-            ".o-dropdown.btn-secondary.show",           # open dropdown rim
-            ".dropdown-item.active",                    # selected-item checkmark
+            "--o-statusbar-border-active",  # status tracker ::before
+            ".o_searchview:focus-within",  # search bar outline
+            ".o-dropdown.btn-secondary.show",  # open dropdown rim
+            ".dropdown-item.active",  # selected-item checkmark
         ):
             self.assertIn(selector, css, f"{selector} is not branded")

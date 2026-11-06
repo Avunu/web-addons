@@ -22,7 +22,8 @@
                             aria-hidden="true"
                         />
                         <div>
-                            <b>The brand colour is used throughout the interface, not just on the header.</b>
+                            <b
+                            >The brand colour is used throughout the interface, not just on the header.</b>
                             <div class="text-muted">
                                 It sets primary buttons, links, focus rings, selected rows,
                                 active tabs, the status bar and the search panel — everywhere

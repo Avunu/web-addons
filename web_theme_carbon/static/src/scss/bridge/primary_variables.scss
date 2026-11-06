@@ -21,13 +21,13 @@
 // Carbon's productive scale. body-compact-01 (14px/18px) is the ERP workhorse
 // and happens to already be Odoo's base size, so this is mostly line-height.
 $o-root-font-size: 16px !default;
-$o-font-size-base: o-to-rem(14px) !default;          // body-compact-01
-$o-font-size-base-small: o-to-rem(12px) !default;    // label-01
-$o-font-size-base-smaller: o-to-rem(12px) !default;  // helper-text-01
-$o-font-size-base-touch: o-to-rem(16px) !default;    // body-compact-02
-$o-line-height-base: 1.28572 !default;               // 18/14
-$o-line-height-sm: 1.33333 !default;                 // 16/12
-$o-line-height-lg: 1.42857 !default;                 // 20/14
+$o-font-size-base: o-to-rem(14px) !default; // body-compact-01
+$o-font-size-base-small: o-to-rem(12px) !default; // label-01
+$o-font-size-base-smaller: o-to-rem(12px) !default; // helper-text-01
+$o-font-size-base-touch: o-to-rem(16px) !default; // body-compact-02
+$o-line-height-base: 1.28572 !default; // 18/14
+$o-line-height-sm: 1.33333 !default; // 16/12
+$o-line-height-lg: 1.42857 !default; // 20/14
 
 // Carbon caps emphasis at SemiBold; it never uses 700 in product UI.
 $o-font-weight-normal: 400 !default;
@@ -37,15 +37,37 @@ $o-font-weight-bold: 600 !default;
 // Override the RAW stack, not $o-font-family-sans-serif: Odoo's own line then
 // runs o-add-unicode-support-font() over it for us, and $o-headings-font-family
 // inherits Plex automatically.
-$o-system-fonts: ("IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Ubuntu, "Noto Sans", Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji") !default;
+$o-system-fonts: (
+    "IBM Plex Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Ubuntu,
+    "Noto Sans",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji"
+) !default;
 // Drop Odoo's "SF Pro Display" head: Carbon uses one family throughout and
 // differentiates by weight and size.
 $o-headings-font-family: o-add-unicode-support-font($o-system-fonts) !default;
-$o-font-family-monospace: o-add-unicode-support-font(("IBM Plex Mono",
-    SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace)) !default;
+$o-font-family-monospace: o-add-unicode-support-font(
+    (
+        "IBM Plex Mono",
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        "Courier New",
+        monospace
+    )
+) !default;
 
 // == Neutral ramp ============================================================
 // The nine highest-leverage lines in the module: Odoo derives borders, muted
@@ -114,20 +136,20 @@ $o-border-radius-lg: 0 !default;
 // monetary fields position a ghost value behind the input, and an opaque fill
 // hides it. web_theme_classic hit the same wall and solved it the same way.
 $o-input-bg: mix($c-field-01, transparent, 60%) !default;
-$o-input-padding-y: 6px !default;   // 6+18+6 + 1px rule ~= 32px, Carbon field `sm`
+$o-input-padding-y: 6px !default; // 6+18+6 + 1px rule ~= 32px, Carbon field `sm`
 $o-input-padding-x: 12px !default;
 $o-input-invalid-bg: mix($c-support-error, transparent, 8%) !default;
 $o-input-border-required: $c-border-strong-01 !default;
 
 // == Density: Carbon's spacing scale =========================================
-$o-spacer: 16px !default;              // spacing-05
+$o-spacer: 16px !default; // spacing-05
 $o-horizontal-padding: 16px !default;
-$o-form-spacing-unit: 4px !default;    // spacing-02
+$o-form-spacing-unit: 4px !default; // spacing-02
 $o-dropdown-hpadding: 16px !default;
-$o-dropdown-vpadding: 7px !default;    // 7+18+7 = 32px menu items
+$o-dropdown-vpadding: 7px !default; // 7+18+7 = 32px menu items
 $o-table-cell-padding-x-sm: 16px !default;
-$o-table-cell-padding-y-sm: 7px !default;  // 32px list rows
-$o-navbar-height: 48px !default;       // cds--header
+$o-table-cell-padding-y-sm: 7px !default; // 32px list rows
+$o-navbar-height: 48px !default; // cds--header
 $o-statusbar-height: 40px !default;
 $o-statbutton-height: 40px !default;
 $o-breadcrumb-item-padding-x: 8px !default;
@@ -147,51 +169,101 @@ $o-label-font-size-factor: 1 !default;
 // unusable. Real Carbon secondary stays reachable as .btn-dark.
 $o-btns-bs-override: (
     "primary": (
-        background: $c-button-primary, border: $c-button-primary, color: $c-text-on-color,
-        hover-background: $c-button-primary-hover, hover-border: $c-button-primary-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-primary-active, active-border: $c-button-primary-active, active-color: $c-text-on-color,
+        background: $c-button-primary,
+        border: $c-button-primary,
+        color: $c-text-on-color,
+        hover-background: $c-button-primary-hover,
+        hover-border: $c-button-primary-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-primary-active,
+        active-border: $c-button-primary-active,
+        active-color: $c-text-on-color,
     ),
     "secondary": (
-        background: $c-layer-01, border: $c-border-strong-01, color: $c-text-primary,
-        hover-background: $c-layer-hover-01, hover-border: $c-border-strong-01, hover-color: $c-text-primary,
-        active-background: $c-layer-selected-01, active-border: $c-border-interactive, active-color: $c-text-primary,
+        background: $c-layer-01,
+        border: $c-border-strong-01,
+        color: $c-text-primary,
+        hover-background: $c-layer-hover-01,
+        hover-border: $c-border-strong-01,
+        hover-color: $c-text-primary,
+        active-background: $c-layer-selected-01,
+        active-border: $c-border-interactive,
+        active-color: $c-text-primary,
     ),
     "dark": (
-        background: $c-button-secondary, border: $c-button-secondary, color: $c-text-on-color,
-        hover-background: $c-button-secondary-hover, hover-border: $c-button-secondary-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-secondary-active, active-border: $c-button-secondary-active, active-color: $c-text-on-color,
+        background: $c-button-secondary,
+        border: $c-button-secondary,
+        color: $c-text-on-color,
+        hover-background: $c-button-secondary-hover,
+        hover-border: $c-button-secondary-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-secondary-active,
+        active-border: $c-button-secondary-active,
+        active-color: $c-text-on-color,
     ),
     "light": (
-        background: transparent, border: transparent, color: $c-link-primary,
-        hover-background: $c-layer-hover-01, hover-border: transparent, hover-color: $c-link-primary,
-        active-background: $c-layer-selected-01, active-border: transparent, active-color: $c-link-primary,
+        background: transparent,
+        border: transparent,
+        color: $c-link-primary,
+        hover-background: $c-layer-hover-01,
+        hover-border: transparent,
+        hover-color: $c-link-primary,
+        active-background: $c-layer-selected-01,
+        active-border: transparent,
+        active-color: $c-link-primary,
     ),
     "danger": (
-        background: $c-button-danger-primary, border: $c-button-danger-primary, color: $c-text-on-color,
-        hover-background: $c-button-danger-hover, hover-border: $c-button-danger-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-danger-active, active-border: $c-button-danger-active, active-color: $c-text-on-color,
+        background: $c-button-danger-primary,
+        border: $c-button-danger-primary,
+        color: $c-text-on-color,
+        hover-background: $c-button-danger-hover,
+        hover-border: $c-button-danger-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-danger-active,
+        active-border: $c-button-danger-active,
+        active-color: $c-text-on-color,
     ),
 ) !default;
 
 $o-btns-bs-outline-override: (
     // cds--btn--tertiary
-    "primary": (
-        background: transparent, border: $c-button-tertiary, color: $c-button-tertiary,
-        hover-background: $c-button-primary-hover, hover-border: $c-button-primary-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-primary-active, active-border: $c-button-primary-active, active-color: $c-text-on-color,
-    ),
+    "primary":
+        (
+            background: transparent,
+            border: $c-button-tertiary,
+            color: $c-button-tertiary,
+            hover-background: $c-button-primary-hover,
+            hover-border: $c-button-primary-hover,
+            hover-color: $c-text-on-color,
+            active-background: $c-button-primary-active,
+            active-border: $c-button-primary-active,
+            active-color: $c-text-on-color,
+        ),
     // Read at compile time by dropdown.scss, button_box.scss and
     // statusbar_field.scss, so getting it right themes those for free.
-    "secondary": (
-        background: transparent, border: $c-border-subtle, color: $c-text-primary,
-        hover-background: $c-layer-hover-01, hover-border: $c-border-subtle, hover-color: $c-text-primary,
-        active-background: $c-layer-selected-01, active-border: $c-border-interactive, active-color: $c-text-primary,
-    ),
+    "secondary":
+        (
+            background: transparent,
+            border: $c-border-subtle,
+            color: $c-text-primary,
+            hover-background: $c-layer-hover-01,
+            hover-border: $c-border-subtle,
+            hover-color: $c-text-primary,
+            active-background: $c-layer-selected-01,
+            active-border: $c-border-interactive,
+            active-color: $c-text-primary,
+        ),
     "danger": (
-        background: transparent, border: $c-button-danger-primary, color: $c-button-danger-primary,
-        hover-background: $c-button-danger-hover, hover-border: $c-button-danger-hover, hover-color: $c-text-on-color,
-        active-background: $c-button-danger-active, active-border: $c-button-danger-active, active-color: $c-text-on-color,
-    ),
+        background: transparent,
+        border: $c-button-danger-primary,
+        color: $c-button-danger-primary,
+        hover-background: $c-button-danger-hover,
+        hover-border: $c-button-danger-hover,
+        hover-color: $c-text-on-color,
+        active-background: $c-button-danger-active,
+        active-border: $c-button-danger-active,
+        active-color: $c-text-on-color,
+    )
 ) !default;
 
 // == Component tokens (web/static/src/**/*.variables.scss, all !default) ======

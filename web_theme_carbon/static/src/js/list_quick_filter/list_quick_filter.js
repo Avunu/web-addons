@@ -30,10 +30,10 @@
  * patches `getRowClass()`, which the row template already calls, and adds a class
  * that hides the row. The model is untouched; only the presentation changes.
  */
-import { patch } from "@web/core/utils/patch";
-import { useState } from "@odoo/owl";
-import { ListRenderer } from "@web/views/list/list_renderer";
-import { _t } from "@web/core/l10n/translation";
+import {patch} from "@web/core/utils/patch";
+import {useState} from "@odoo/owl";
+import {ListRenderer} from "@web/views/list/list_renderer";
+import {_t} from "@web/core/l10n/translation";
 
 /** The class the stylesheet hides. */
 const HIDDEN = "o_carbon_row_filtered_out";
@@ -49,7 +49,7 @@ const CARBON_MAX_EXPAND = 2000;
 patch(ListRenderer.prototype, {
     setup() {
         super.setup(...arguments);
-        this.carbonFilter = useState({ query: "", expanded: false, loading: false });
+        this.carbonFilter = useState({query: "", expanded: false, loading: false});
         // Pagination to restore when the query is cleared.
         this._carbonPageRestore = null;
     },
@@ -79,10 +79,10 @@ patch(ListRenderer.prototype, {
         if (list.count <= list.records.length || list.count > CARBON_MAX_EXPAND) {
             return;
         }
-        this._carbonPageRestore = { limit: list.limit, offset: list.offset };
+        this._carbonPageRestore = {limit: list.limit, offset: list.offset};
         this.carbonFilter.loading = true;
         try {
-            await list.load({ limit: list.count, offset: 0 });
+            await list.load({limit: list.count, offset: 0});
         } finally {
             this.carbonFilter.loading = false;
         }
@@ -143,14 +143,13 @@ patch(ListRenderer.prototype, {
             if (value === null || value === undefined || value === false) {
                 continue;
             }
-            let text;
+            let text = value;
             if (Array.isArray(value)) {
-                text = value[1] ?? value[0]; // many2one: [id, display_name]
+                // Many2one: [id, display_name]
+                text = value[1] ?? value[0];
             } else if (typeof value === "object") {
-                // x2many and similar: fall back to whatever the record knows
+                // X2many and similar: fall back to whatever the record knows
                 text = value.displayName ?? value.count ?? "";
-            } else {
-                text = value;
             }
             if (String(text).toLowerCase().includes(needle)) {
                 return true;
@@ -167,7 +166,7 @@ patch(ListRenderer.prototype, {
         // Once a relational list has been pulled in whole, records.length IS
         // the relation, so "n of m" reads against everything the user expects
         // rather than against a page they can no longer see.
-        return { shown, total: records.length };
+        return {shown, total: records.length};
     },
 
     get carbonFilterPlaceholder() {

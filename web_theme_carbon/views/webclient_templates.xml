@@ -19,10 +19,7 @@
         name="Carbon brand colours"
     >
         <xpath expr="//t[@t-set='head_web']">
-            <style
-                type="text/css"
-                t-out="env['res.company']._carbon_brand_style()"
-            />
+            <style type="text/css" t-out="env['res.company']._carbon_brand_style()" />
         </xpath>
     </template>
 </odoo>
