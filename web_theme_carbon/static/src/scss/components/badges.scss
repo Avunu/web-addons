@@ -33,9 +33,19 @@
     border-radius: 50rem;
 }
 
-@each $-bs, $-carbon in ("primary": "blue", "secondary": "gray", "success": "green",
-                         "danger": "red", "info": "cyan", "dark": "cool-gray",
-                         "light": "gray", "warning": "yellow") {
+@each $-bs,
+    $-carbon
+        in (
+            "primary": "blue",
+            "secondary": "gray",
+            "success": "green",
+            "danger": "red",
+            "info": "cyan",
+            "dark": "cool-gray",
+            "light": "gray",
+            "warning": "yellow"
+        )
+{
     .o_field_badge > .badge.text-bg-#{$-bs} {
         // warning maps to Carbon's yellow, which is not a Carbon TAG colour --
         // it comes from the --carbon-* aliases the codegen emits per theme.

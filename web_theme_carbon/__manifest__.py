@@ -35,25 +35,42 @@
         # have already spliced the anchor into it.
         # ------------------------------------------------------------------
         "web_theme_carbon._variables": [
-            ("before", "web/static/src/scss/primary_variables.scss",
-             "web_theme_carbon/static/src/scss/generated/_carbon_tokens.scss"),
-            ("before", "web/static/src/scss/primary_variables.scss",
-             "web_theme_carbon/static/src/scss/bridge/primary_variables.scss"),
+            (
+                "before",
+                "web/static/src/scss/primary_variables.scss",
+                "web_theme_carbon/static/src/scss/generated/_carbon_tokens.scss",
+            ),
+            (
+                "before",
+                "web/static/src/scss/primary_variables.scss",
+                "web_theme_carbon/static/src/scss/bridge/primary_variables.scss",
+            ),
             # Lands after every *.variables.scss and secondary_variables.scss,
             # which is the only way to reach the vars Odoo declares without
             # !default, plus the raw Bootstrap $vars.
-            ("before", "web/static/src/scss/bootstrap_overridden.scss",
-             "web_theme_carbon/static/src/scss/bridge/late.scss"),
+            (
+                "before",
+                "web/static/src/scss/bootstrap_overridden.scss",
+                "web_theme_carbon/static/src/scss/bridge/late.scss",
+            ),
         ],
         "web_theme_carbon._variables_dark": [
-            ("before", "web/static/src/scss/primary_variables.scss",
-             "web_theme_carbon/static/src/scss/generated/_carbon_tokens_dark.scss"),
-            ("before", "web/static/src/scss/primary_variables.scss",
-             "web_theme_carbon/static/src/scss/bridge_dark/primary_variables.scss"),
-            ("before", "web/static/src/scss/bootstrap_overridden.scss",
-             "web_theme_carbon/static/src/scss/bridge_dark/late.scss"),
+            (
+                "before",
+                "web/static/src/scss/primary_variables.scss",
+                "web_theme_carbon/static/src/scss/generated/_carbon_tokens_dark.scss",
+            ),
+            (
+                "before",
+                "web/static/src/scss/primary_variables.scss",
+                "web_theme_carbon/static/src/scss/bridge_dark/primary_variables.scss",
+            ),
+            (
+                "before",
+                "web/static/src/scss/bootstrap_overridden.scss",
+                "web_theme_carbon/static/src/scss/bridge_dark/late.scss",
+            ),
         ],
-
         # ----------------------------------------------------------- LIGHT
         "web.assets_backend": [
             ("include", "web_theme_carbon._variables"),
@@ -74,7 +91,6 @@
         "web.assets_backend_lazy": [
             ("include", "web_theme_carbon._variables"),
         ],
-
         # ------------------------------------------------------------ DARK
         # assets_web_dark = include(assets_web) + web's *.dark.scss, so
         # everything above is already in the list here. SCSS variables must
