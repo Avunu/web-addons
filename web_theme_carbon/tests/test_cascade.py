@@ -125,3 +125,22 @@ class TestCarbonCascade(TransactionCase):
             "the last --cds-background in assets_web_dark is not g100's; the dark "
             "token file is no longer appended after the light one",
         )
+
+    def test_statusbar_step_icons_survive_url_rewriting(self):
+        """The progress-indicator step icons reach the bundle as data: URIs.
+
+        Odoo's asset bundler prefixes every url() it does not recognise as
+        absolute with the stylesheet's own directory. An interpolated
+        `url("#{$icon}")` is one of those, so the icons became 404 paths under
+        /web_theme_carbon/static/src/scss/components/ and the steps silently
+        lost their status icons.
+        """
+        for bundle in ("web.assets_backend", "web.assets_web_dark"):
+            css = self._bundle_css(bundle)
+            icons = re.findall(r"--o-carbon-step-icon:\s*url\(\"?([^\")]{0,24})", css)
+            self.assertEqual(len(icons), 3, f"{bundle}: expected 3 step icons")
+            for value in icons:
+                self.assertTrue(
+                    value.startswith("data:image/svg+xml"),
+                    f"{bundle}: step icon was rewritten to {value!r}",
+                )

@@ -1,43 +1,148 @@
-// Statusbar -> Carbon content switcher.
+// Statusbar -> Carbon progress indicator (cds--progress).
 //
-// Odoo draws the statusbar's chevrons with a clip-path polygon whose points are
-// all derived from --o-statusbar-caret-width. The bridge sets
-// $o-statusbar-arrow-width: 0, which collapses that polygon into a plain
-// rectangle -- a content switcher -- without touching the markup.
+// Odoo's statusbar shows where a record is in its workflow (Draft -> Sent ->
+// Sales Order). Carbon's component for "which step of a linear process is
+// this on" is the progress indicator: a 2px step line on top, then a status
+// icon and a label per step. Completed steps get a checkmark-outline icon and
+// an interactive line, the current step the half-filled "incomplete" icon and
+// an interactive line, and steps not started yet a dashed circle and a subtle
+// line. https://carbondesignsystem.com/components/progress-indicator/usage/
 //
-// THE CATCH: statusbar_field.scss also derives the horizontal padding from the
-// same variable
+// It used to be restyled as a content switcher (flat segments). Carbon keeps
+// that component for switching between views of the same content, and the
+// flat segments threw away the one thing the chevrons said: how far along the
+// record is.
 //
-//     --o-statusbar-padding-x: calc(var(--o-statusbar-caret-width) * 1.25);
+// The markup is untouched. Odoo renders the items in REVERSE order inside a
+// `flex-flow: row-reverse` container, so in DOM order the steps after the
+// current one are the ones drawn to its left -- the completed ones. That is
+// what `.o_arrow_button_current ~ .o_arrow_button` selects. The "before"
+// overflow toggle (.o_last, far left) sits after the current step in the DOM
+// too, so it gets the completed line; the "after" toggle (.o_first, far right)
+// holds future and folded stages and keeps the subtle one.
 //
-// so zeroing the caret also zeroes the padding and the segments collapse onto
-// their own text. The padding therefore has to be restated here.
+// Odoo draws the segments with clip-path polygons on the button and its
+// ::before; both are switched off here. The ::before becomes the step line and
+// keeps reading Odoo's own --o-statusbar-border / --o-statusbar-border-active,
+// so line colours are set as variables rather than fought selector by
+// selector. The icon is an ::after mask, reordered in front of the label.
 //
-// The hover/active colours are NOT set here: statusbar_field.scss reads them
-// out of $o-btns-bs-override."secondary" at compile time, so the bridge's
-// button map has already themed them.
+// $o-statusbar-arrow-width stays 0px in bridge/late.scss: Odoo still derives
+// the button's negative margin from it.
+
+// Carbon icons (@carbon/icons, 32px grid): checkmark--outline, incomplete,
+// circle-dash -- the three ProgressStep renders for complete, current and
+// not started. Each variable holds the whole url(): Odoo's asset bundler
+// rewrites every url() that does not literally start with `data:` into a path
+// relative to this file, and `url("#{$var}")` does not.
+$-step-complete: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M14 21.414 9 16.413 10.413 15 14 18.586 21.585 11 23 12.415z'/%3E%3Cpath d='M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2Zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12Z'/%3E%3C/svg%3E");
+$-step-current: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M23.7642 6.8593l1.2851-1.5315A13.976 13.976 0 0 0 20.8672 2.887l-.6836 1.8776A11.9729 11.9729 0 0 1 23.7642 6.8593Z'/%3E%3Cpath d='M27.81 14l1.9677-.4128A13.8888 13.8888 0 0 0 28.14 9.0457L26.4087 10A12.52 12.52 0 0 1 27.81 14Z'/%3E%3Cpath d='M20.1836 27.2354l.6836 1.8776a13.976 13.976 0 0 0 4.1821-2.4408l-1.2851-1.5315A11.9729 11.9729 0 0 1 20.1836 27.2354Z'/%3E%3Cpath d='M26.4087 22 28.14 23a14.14 14.14 0 0 0 1.6382-4.5872L27.81 18.0659A12.1519 12.1519 0 0 1 26.4087 22Z'/%3E%3Cpath d='M16 30V2a14 14 0 0 0 0 28Z'/%3E%3C/svg%3E");
+$-step-not-started: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M7.7 4.7a14.7 14.7 0 0 0-3 3.1L6.3 9a13.26 13.26 0 0 1 2.6-2.7Z'/%3E%3Cpath d='M4.6 12.3l-1.9-.6A12.51 12.51 0 0 0 2 16h2a11.48 11.48 0 0 1 .6-3.7Z'/%3E%3Cpath d='M2.7 20.4a14.4 14.4 0 0 0 2 3.9l1.6-1.2a12.89 12.89 0 0 1-1.7-3.3Z'/%3E%3Cpath d='M7.8 27.3a14.4 14.4 0 0 0 3.9 2l.6-1.9A12.89 12.89 0 0 1 9 25.7Z'/%3E%3Cpath d='M11.7 2.7l.6 1.9A11.48 11.48 0 0 1 16 4V2a12.51 12.51 0 0 0-4.3.7Z'/%3E%3Cpath d='M24.2 27.3a15.18 15.18 0 0 0 3.1-3.1L25.7 23a11.53 11.53 0 0 1-2.7 2.7Z'/%3E%3Cpath d='M27.4 19.7l1.9.6A15.47 15.47 0 0 0 30 16h-2a11.48 11.48 0 0 1-.6 3.7Z'/%3E%3Cpath d='M29.2 11.6a14.4 14.4 0 0 0-2-3.9l-1.6 1.2a12.89 12.89 0 0 1 1.7 3.3Z'/%3E%3Cpath d='M24.1 4.6a14.4 14.4 0 0 0-3.9-2l-.6 1.9a12.89 12.89 0 0 1 3.3 1.7Z'/%3E%3Cpath d='M20.3 29.3l-.6-1.9A11.48 11.48 0 0 1 16 28v2a21.42 21.42 0 0 0 4.3-.7Z'/%3E%3C/svg%3E");
 
 .o_field_statusbar > .o_statusbar_status {
-    // Carbon content switcher: 16px inset. The 1.375 factor is Odoo's own
-    // multiplier on this variable, so the effective inset is ~16px.
-    --o-statusbar-padding-x: 11.6px;
-    --o-statusbar-radius: 0;
+    // Step lines: inactive is Carbon's layer-aware border-subtle, active is
+    // border-interactive (which the company brand colour rebinds).
     --o-statusbar-border: var(--carbon-border-subtle);
+    --o-statusbar-border-active: var(--cds-border-interactive);
+    // Carbon steps have no fill in any state.
+    --o-statusbar-background-hover: transparent;
+    --o-statusbar-background-active: transparent;
+    --o-statusbar-radius: 0;
+    --o-carbon-step-icon: #{$-step-not-started};
+    --o-carbon-step-icon-color: var(--cds-icon-primary);
 
-    > .o_arrow_button {
+    > .o_arrow_button:not(.d-none) {
+        display: flex;
+        align-items: flex-start;
+        // Carbon: a step is at least 128px; the label sits 8px under the line.
+        min-width: 8rem;
+        min-height: 2.5rem;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0.5rem 1rem 0 0;
+        clip-path: none;
+        background-color: transparent;
+        // body-compact-01, regular weight in every state: Carbon marks the
+        // current step with its icon and line, not with bold type.
         font-size: 0.875rem;
         font-weight: 400;
+        line-height: 1.45;
         letter-spacing: 0.16px;
-        color: var(--cds-text-secondary);
+        text-align: left;
+        white-space: nowrap;
+        color: var(--cds-text-primary);
+
+        &.o_first,
+        &.o_last {
+            padding-left: 0;
+            padding-right: 1rem;
+        }
+
+        // The step line.
+        &::before {
+            inset: 0 0 auto 0;
+            height: 2px;
+            clip-path: none;
+        }
+
+        // The status icon, drawn in front of the label.
+        &:not(.dropdown-toggle)::after {
+            content: "";
+            order: -1;
+            flex: none;
+            width: 1rem;
+            height: 1rem;
+            // 10px below the line, as in Carbon, with the label at 8px.
+            margin: 2px 0.5rem 0 0;
+            background-color: var(--o-carbon-step-icon-color);
+            -webkit-mask: var(--o-carbon-step-icon) center / contain no-repeat;
+            mask: var(--o-carbon-step-icon) center / contain no-repeat;
+        }
+
+        // The "..." toggles that hold the stages Odoo folds away for space.
+        &.dropdown-toggle {
+            min-width: 0;
+        }
 
         &.o_arrow_button_current {
-            font-weight: 600;
+            --o-carbon-step-icon: #{$-step-current};
+            --o-carbon-step-icon-color: var(--cds-interactive);
+        }
+
+        // Pressing a step that is not current keeps its own line colour;
+        // Odoo would paint it with the current step's.
+        &:active:not(.o_arrow_button_current) {
+            --o-statusbar-border-active: var(--o-statusbar-border);
+        }
+
+        // Clickable steps: Carbon's interactive progress indicator underlines
+        // the label in link-primary-hover.
+        &:not(:disabled):hover {
+            color: var(--cds-link-primary-hover);
+            text-decoration: underline;
+            text-underline-offset: 0.25rem;
+        }
+
+        &:not(:disabled):active {
             color: var(--cds-text-primary);
         }
 
-        &:focus-visible {
-            outline: 2px solid var(--cds-focus);
-            outline-offset: -2px;
+        // A read-only statusbar is Carbon's non-interactive progress indicator,
+        // not its disabled state, so the labels stay text-primary. Odoo greys
+        // every step but the current one with this exact selector.
+        &:disabled:not(.o_arrow_button_current) {
+            &,
+            &:hover,
+            &:focus {
+                color: var(--cds-text-primary);
+            }
         }
+    }
+
+    // Completed steps: every step drawn to the left of the current one.
+    > .o_arrow_button_current ~ .o_arrow_button {
+        --o-statusbar-border: var(--cds-border-interactive);
+        --o-carbon-step-icon: #{$-step-complete};
+        --o-carbon-step-icon-color: var(--cds-interactive);
     }
 }

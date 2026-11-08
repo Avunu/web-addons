@@ -16,9 +16,11 @@
 $o-search-panel-width: 256px; // 16rem, Carbon side-nav
 $o-search-panel-font-size: 1em;
 $o-search-bar-facet-value-width: 16rem;
-// Collapses the statusbar's clip-path chevrons into plain rectangles, which is
-// what turns it into a Carbon content-switcher without touching the markup:
-//   polygon(0 0, calc(100% - W) 0, 100% 50%, ...) with W = 0 is a rectangle.
+// Flattens the statusbar's chevrons: Odoo offsets every segment by
+//   margin-left: calc(-1 * var(--o-statusbar-caret-width) - ...)
+// so the arrows overlap. components/statusbar.scss redraws the statusbar as a
+// Carbon progress indicator and switches the clip-path polygons off, but this
+// still keeps the caret out of every calc Odoo derives from it.
 //
 // 0px, NOT 0. Odoo builds the inner polygon with
 //   calc(100% - var(--o-statusbar-caret-width) - var(--o-statusbar-border-width) * sqrt(2))
