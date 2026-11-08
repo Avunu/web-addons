@@ -4,7 +4,7 @@
 
 A brand colour is set once and reaches everything the theme draws from the
 Carbon interactive family: primary buttons, links, focus rings, selected rows,
-the notebook underline, the search-panel rule, the statusbar current step. It
+the notebook underline, the search-panel rule, the statusbar progress line. It
 is not a header tint -- the header is a separate setting precisely because the
 two are different decisions.
 
@@ -398,13 +398,6 @@ class ResCompany(models.Model):
 :not(.dropstart) > .dropdown-item.active:not(.dropdown-item_active_noarrow):before,
 :not(.dropstart) > .dropdown-item.selected:not(.dropdown-item_active_noarrow):before {
     color: %(brand)s;
-}
-
-/* The status bar draws its current step with a ::before whose colour comes
-   straight out of the button map -- a Carbon-blue literal -- so it kept a blue
-   rim on a branded document. */
-.o_field_statusbar > .o_statusbar_status {
-    --o-statusbar-border-active: %(brand)s;
 }
 
 /* search_view.scss compiles `border-color: $input-focus-border-color` on
