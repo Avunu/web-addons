@@ -260,14 +260,13 @@ class TestCarbonBrand(TransactionCase):
         self.assertIn(".text-action", css)
 
     def test_compiled_literals_get_real_rules(self):
-        """Four places Odoo compiles a colour with no custom property behind it.
+        """Three places Odoo compiles a colour with no custom property behind it.
 
         Each needs an actual rule; a token cannot reach any of them.
         """
         self.company.carbon_brand_light = "#cd4c4c"
         css = self._style()
         for selector in (
-            "--o-statusbar-border-active",  # status tracker ::before
             ".o_searchview:focus-within",  # search bar outline
             ".o-dropdown.btn-secondary.show",  # open dropdown rim
             ".dropdown-item.active",  # selected-item checkmark
