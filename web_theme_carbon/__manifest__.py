@@ -3,7 +3,7 @@
 {
     "name": "Carbon Backend Theme",
     "summary": "IBM Carbon Design System theme for the Odoo backend",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "category": "Themes/Backend",
     "author": "Avunu LLC",
     "website": "https://github.com/Avunu/web-addons",
