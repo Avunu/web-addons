@@ -69,6 +69,7 @@ constraint-dependencies = ["setuptools<81"]
     "odoo-addon-web_loading_block_ui" = { path = "../.odoo-nix/modules/web/web_loading_block_ui" }
     "odoo-addon-web_m2x_options" = { path = "../.odoo-nix/modules/web/web_m2x_options" }
     "odoo-addon-web_m2x_options_manager" = { path = "../.odoo-nix/modules/web/web_m2x_options_manager" }
+    "odoo-addon-web_navbar_light" = { path = "../.odoo-nix/modules/web/web_navbar_light" }
     "odoo-addon-web_no_bubble" = { path = "../.odoo-nix/modules/web/web_no_bubble" }
     "odoo-addon-web_notify" = { path = "../.odoo-nix/modules/web/web_notify" }
     "odoo-addon-web_notify_channel_message" = { path = "../.odoo-nix/modules/web/web_notify_channel_message" }
