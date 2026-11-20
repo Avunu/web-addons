@@ -3,7 +3,7 @@ var globals = require('globals');
 jsdoc = require("eslint-plugin-jsdoc");
 
 const config = [{
-    ignores: ["web_theme_carbon/tools/**"],
+    ignores: ["eslint.config.cjs", "prettier.config.cjs", "web_theme_carbon/tools/**"],
 }, {
     plugins: {
       jsdoc,
