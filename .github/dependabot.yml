@@ -39,5 +39,39 @@ updates:
     ignore:
       - dependency-name: "odoo-nix"
       - dependency-name: "standards-profile"
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: "18.0"
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: chore(deps)
+    labels: [dependencies]
+    # The caller pins move with the engine (`odoo-init --sync`).
+    ignore:
+      - dependency-name: "Avunu/odoo-nix/*"
+      - dependency-name: "Avunu/python-devops-nix/*"
+    groups:
+      actions:
+        patterns: ["*"]
+  - package-ecosystem: nix
+    directory: /
+    target-branch: "18.0"
+    schedule:
+      interval: weekly
+    # An addon repository's OCB follows the branch tip: a cooldown picks an odoo/odoo commit
+    # inside one of OCB's merges, which has no OCB pyproject.toml and does not evaluate.
+    cooldown:
+      default-days: 7
+      exclude: ["ocb"]
+    commit-message:
+      prefix: chore(deps)
+    labels: [dependencies]
+    # Moved by `odoo-nix repo rollout` or `odoo-init --sync`.
+    ignore:
+      - dependency-name: "odoo-nix"
+      - dependency-name: "standards-profile"
   # odoo-nix:local-begin updates
   # odoo-nix:local-end updates
