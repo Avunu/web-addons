@@ -14,6 +14,8 @@ Each module's README explains why it exists and how it works.
 
 Each maintained Odoo series has its own branch (`18.0`, `19.0`), and pull requests go to the series they are for. This branch targets Odoo 18.0, the series named in `.odoo-series`. A release is a tag, `web_theme_carbon-18.0.x.y.z`, with the addon's zip and wheel attached to its GitHub release.
 
+To bring a fix or non-breaking change back to an older series, label its pull request `backport 18.0` (before or after merging). Once it is merged, CI opens the cherry-pick as a pull request on `18.0`, where the series' own gates check it; a conflict opens a draft with the conflict committed. Releases stay separate: each series cuts its own.
+
 ## Install
 
 Requires Odoo 18.0 and a PostgreSQL database. Installing a module pulls in the modules it depends on (see below), and those must be on your `addons_path` first.
