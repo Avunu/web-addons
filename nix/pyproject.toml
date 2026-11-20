@@ -113,6 +113,10 @@ packages = []
 schema = 1
 profile = "github:Avunu/odoo-standards-profile/v1"
 
+[tool.odoo-nix.dependabot]
+# Dependabot reads its config from the default branch only: list every series branch.
+target-branches = ["19.0", "18.0"]
+
 [tool.odoo-nix.icons]
 src-icon = "assets/icons/web-addons.png"
 
