@@ -13,6 +13,14 @@ on:
   pull_request:
     types: [closed, labeled]
     branches: ["19.0"]
+  # A pull request labelled after it merged runs the workflow as its own branch had it, so
+  # an older pull request can be backported from here, with the current file.
+  workflow_dispatch:
+    inputs:
+      pull_number:
+        description: "The merged pull request on 19.0 to backport (it keeps its backport labels)"
+        type: string
+        required: true
 permissions: {}
 jobs:
   backport:
@@ -20,8 +28,9 @@ jobs:
     # Merged, and carrying a backport label: the labelled event on a still-open pull
     # request has nothing to cherry-pick yet, and the closed event of an unmerged one never does.
     if: >-
-      github.event.pull_request.merged == true
-      && contains(join(github.event.pull_request.labels.*.name, ','), 'backport ')
+      github.event_name == 'workflow_dispatch'
+      || (github.event.pull_request.merged == true
+      && contains(join(github.event.pull_request.labels.*.name, ','), 'backport '))
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -40,12 +49,13 @@ jobs:
       # repository, and the job runs nothing but the pinned actions.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1  # zizmor: ignore[artipacked]
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
+          ref: ${{ github.event.pull_request.base.ref || github.ref_name }}
           token: ${{ steps.app-token.outputs.token }}
 
       - uses: korthout/backport-action@ad272ff24e4a8593bf18a951a154ae6af93b26b8 # v5.0.0
         with:
           github_token: ${{ steps.app-token.outputs.token }}
+          source_pr_number: ${{ inputs.pull_number }}
           label_pattern: '^backport (\d+\.0)$'
           # Keeps the conventional-commit title pr-policy and release-please read.
           pull_title: ${pull_title}
