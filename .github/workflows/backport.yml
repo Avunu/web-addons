@@ -55,6 +55,8 @@ jobs:
       - uses: korthout/backport-action@ad272ff24e4a8593bf18a951a154ae6af93b26b8 # v5.0.0
         with:
           github_token: ${{ steps.app-token.outputs.token }}
+          # Never ends in `.0`: the series ruleset guards every branch matching `*.0`.
+          branch_name: backport/${target_branch}/${pull_number}
           source_pr_number: ${{ inputs.pull_number }}
           label_pattern: '^backport (\d+\.0)$'
           # Keeps the conventional-commit title pr-policy and release-please read.
