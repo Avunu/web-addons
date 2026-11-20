@@ -1,0 +1,46 @@
+# Backports: a merged pull request that carries a `backport <series>` label (for example
+# `backport 18.0`) is cherry-picked onto that series branch as a new pull request, which
+# the series' own gates then check like any other. A person decides which pull requests go
+# back, by label; the label can be added before or after the merge. A cherry-pick that
+# conflicts opens a draft pull request with the conflict committed and instructions on the
+# original pull request, so it is resolved by hand, never guessed at.
+#
+# It runs on `pull_request`, not `pull_request_target`: the repository's secrets reach it
+# only for pull requests from branches of this repository, which is who decides what goes
+# back. A fork's merged pull request is backported by labelling it from a branch here.
+name: backport
+on:
+  pull_request:
+    types: [closed, labeled]
+    branches: ["19.0"]
+permissions: {}
+jobs:
+  backport:
+    name: backport
+    # Merged, and carrying a backport label: the labelled event on a still-open pull
+    # request has nothing to cherry-pick yet, and the closed event of an unmerged one never does.
+    if: >-
+      github.event.pull_request.merged == true
+      && contains(join(github.event.pull_request.labels.*.name, ','), 'backport ')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.AVUNU_CI_APP_ID }}
+          private-key: ${{ secrets.AVUNU_CI_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-workflows: write
+
+      - uses: korthout/backport-action@ad272ff24e4a8593bf18a951a154ae6af93b26b8 # v5.0.0
+        with:
+          github_token: ${{ steps.app-token.outputs.token }}
+          label_pattern: '^backport (\d+\.0)$'
+          # Keeps the conventional-commit title pr-policy and release-please read.
+          pull_title: ${pull_title}
+          copy_labels_pattern: '^(?!backport ).*'
+          add_author_as_assignee: true
+          experimental: '{"conflict_resolution": "draft_commit_conflicts"}'
