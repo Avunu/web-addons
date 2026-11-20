@@ -21,11 +21,10 @@ Each module's README explains why it exists and how it works.
 
 ## Branches
 
-`develop` is the default branch and the one pull requests go to. Its code targets Odoo
-18.0, the series named in `.odoo-series`. `18.0` follows `develop` automatically (a
-workflow fast-forwards it after every push) and is the branch to install or pin. When a
-newer Odoo series is maintained, it gets its own branch (`19.0`, …) and changes flow up
-to it from `develop`.
+Each maintained Odoo series has its own branch (`18.0`, `19.0`), and pull requests go to
+the series they are for. This branch targets Odoo 18.0, the series named in
+`.odoo-series`. A release is a tag, `web_theme_carbon-18.0.x.y.z`, with the addon's zip
+and wheel attached to its GitHub release.
 
 ## Install
 
