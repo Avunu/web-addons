@@ -58,6 +58,15 @@
               workspaceRoot = ./.;
               # The one per-branch fact: the series this branch's code targets.
               odooSeries = lib.fileContents ./.odoo-series;
+              # Every port derives from this offset, which defaults to a hash of the name
+              # alone: the series branches share a name, so their CI jobs on one runner
+              # (and their dev shells on one machine) would fight over the same ports.
+              # ODOO_NIX_PORT_OFFSET still overrides it for a shell.
+              ports.offset =
+                let
+                  digest = builtins.hashString "sha256" "web-addons@${lib.fileContents ./.odoo-series}";
+                in
+                lib.mod (builtins.fromTOML "offset = 0x${builtins.substring 0 6 digest}").offset 900;
               addons.enable = true;
               coreSource = inputs.ocb;
               externalSources = [
