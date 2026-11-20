@@ -148,8 +148,9 @@ patch(ListRenderer.prototype, {
                 // Many2one: [id, display_name]
                 text = value[1] ?? value[0];
             } else if (typeof value === "object") {
-                // X2many and similar: fall back to whatever the record knows
-                text = value.displayName ?? value.count ?? "";
+                // Many2one from Odoo 19 on ({id, display_name}), x2many and
+                // similar: fall back to whatever the record knows
+                text = value.display_name ?? value.displayName ?? value.count ?? "";
             }
             if (String(text).toLowerCase().includes(needle)) {
                 return true;
