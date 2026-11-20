@@ -1694,7 +1694,7 @@ wheels = [
 
 [[package]]
 name = "odoo-addon-web-theme-carbon"
-version = "19.0.1.0.0.dev1"
+version = "19.0.1.0.0"
 source = { editable = "../web_theme_carbon" }
 dependencies = [
     { name = "odoo" },
