@@ -7,7 +7,7 @@ on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
   push:
-    branches: ["18.0"]
+    branches: ["19.0"]
   workflow_dispatch:
 permissions: {}
 concurrency:
@@ -21,5 +21,5 @@ jobs:
       pull-requests: read
     uses: Avunu/odoo-nix/.github/workflows/odoo-pr-policy.yml@917f576254afd3108f705a9097940fa51667f304 # v2.4.1
     with:
-      integration-branch: "18.0"
+      integration-branch: "19.0"
       runs-on: '["self-hosted","nixos"]'

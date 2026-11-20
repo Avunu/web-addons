@@ -706,15 +706,6 @@ wheels = [
 ]
 
 [[package]]
-name = "decorator"
-version = "5.3.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/60/8b/32f9823da46cde7df2087faa08cd98d01b908f8dcab982cdba9c84e85355/decorator-5.3.1.tar.gz", hash = "sha256:4cbcdd55a6efadb9dbea26b858f4fb3264567b52d69ca0d25b721b553f60ea82", size = 58084, upload-time = "2026-05-18T06:03:28.057Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/05/7f/798705f5296a58ca505d600456748d1be48078eac8a7050d8a98bc9edb89/decorator-5.3.1-py3-none-any.whl", hash = "sha256:f47fe6fdbd2edd623ecfe36875d37aba411624e2670dd395dddae1358689bb3c", size = 10365, upload-time = "2026-05-18T06:03:26.517Z" },
-]
-
-[[package]]
 name = "docopt"
 version = "0.6.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1180,6 +1171,18 @@ wheels = [
 ]
 
 [[package]]
+name = "lxml-html-clean"
+version = "0.4.6"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "lxml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ac/7e/2b7118b28d5bb69dfc4f349e1ca92334cf986601d3c809caa62cfa3bfab6/lxml_html_clean-0.4.6.tar.gz", hash = "sha256:ea9db067c3053854fd87f8d5a1cf01221dc893b54dbf6019c689052e05c64f22", size = 26385, upload-time = "2026-10-26T11:14:45.978Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f5/36/4898b5e3951635846ed0e445e042fadf02b7c5e811a9e43da5b3557bc8d2/lxml_html_clean-0.4.6-py3-none-any.whl", hash = "sha256:cc037270ba500a65e7235409dcddcae8ef37300f26dea826b61d917bf0236880", size = 14952, upload-time = "2026-10-26T11:14:44.73Z" },
+]
+
+[[package]]
 name = "markupsafe"
 version = "3.0.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1574,7 +1577,7 @@ wheels = [
 
 [[package]]
 name = "odoo"
-version = "18.0"
+version = "19.0"
 source = { directory = "../.odoo-nix/odoo" }
 dependencies = [
     { name = "asn1crypto" },
@@ -1582,7 +1585,6 @@ dependencies = [
     { name = "cbor2" },
     { name = "chardet" },
     { name = "cryptography" },
-    { name = "decorator" },
     { name = "docutils" },
     { name = "geoip2" },
     { name = "gevent" },
@@ -1591,6 +1593,7 @@ dependencies = [
     { name = "jinja2" },
     { name = "libsass" },
     { name = "lxml" },
+    { name = "lxml-html-clean" },
     { name = "markupsafe" },
     { name = "num2words" },
     { name = "ofxparse" },
@@ -1627,7 +1630,6 @@ requires-dist = [
     { name = "cbor2" },
     { name = "chardet" },
     { name = "cryptography" },
-    { name = "decorator" },
     { name = "docutils" },
     { name = "geoip2" },
     { name = "gevent" },
@@ -1636,6 +1638,7 @@ requires-dist = [
     { name = "jinja2" },
     { name = "libsass" },
     { name = "lxml" },
+    { name = "lxml-html-clean" },
     { name = "markupsafe" },
     { name = "num2words" },
     { name = "ofxparse" },
@@ -1669,29 +1672,29 @@ provides-extras = ["ldap"]
 
 [[package]]
 name = "odoo-addon-web-dark-mode"
-version = "18.0.1.0.0.18"
+version = "19.0.1.0.0.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "odoo" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/98/cf/18284a69add01e5723d856bc96a48d0b9516d7471ef3f094332dd54fad1f/odoo_addon_web_dark_mode-18.0.1.0.0.18-py3-none-any.whl", hash = "sha256:2bfed5ed8d5c489147c5acb46e17076025deb5c7ee1b3e5f0b60ea2de9492cb0", size = 39121, upload-time = "2026-06-07T04:38:24.222Z" },
+    { url = "https://files.pythonhosted.org/packages/d0/57/ef6c2b63b36b6c1a640b9e2e7458406786903b3f56ad50383f05924854d1/odoo_addon_web_dark_mode-19.0.1.0.0.6-py3-none-any.whl", hash = "sha256:1bc75f0f87eafc42faa642fa3225c0876027472042d4cbc9df5ee225248ecafd", size = 40976, upload-time = "2026-03-30T14:38:02.878Z" },
 ]
 
 [[package]]
 name = "odoo-addon-web-responsive"
-version = "18.0.1.0.10"
+version = "19.0.1.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "odoo" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1b/25/d6a60f55e9197a13512a860933ba09fdef0771c132375603b87303927058/odoo_addon_web_responsive-18.0.1.0.10-py3-none-any.whl", hash = "sha256:f6038d28e5eb3a334bfa512787d78b8590d017381142236bd2926c51cdb2e299", size = 8250917, upload-time = "2026-10-20T15:48:51.98Z" },
+    { url = "https://files.pythonhosted.org/packages/4d/45/ad0d767a31bb30074b749b1ab85fde8e9c9b03942ecefb2183cb526520ec/odoo_addon_web_responsive-19.0.1.1.2-py3-none-any.whl", hash = "sha256:6ffcfcbb133a2f4000ecb7d285c32ccc2e0797f8afbf80841829263a174bf421", size = 8248813, upload-time = "2026-11-19T16:53:40.953Z" },
 ]
 
 [[package]]
 name = "odoo-addon-web-theme-carbon"
-version = "18.0.1.0.1"
+version = "19.0.1.0.0.dev1"
 source = { editable = "../web_theme_carbon" }
 dependencies = [
     { name = "odoo" },
@@ -1701,9 +1704,9 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "odoo", specifier = "==18.0.*" },
-    { name = "odoo-addon-web-dark-mode", specifier = "==18.0.*" },
-    { name = "odoo-addon-web-responsive", specifier = "==18.0.*" },
+    { name = "odoo", specifier = "==19.0.*" },
+    { name = "odoo-addon-web-dark-mode", specifier = "==19.0.*" },
+    { name = "odoo-addon-web-responsive", specifier = "==19.0.*" },
 ]
 
 [[package]]

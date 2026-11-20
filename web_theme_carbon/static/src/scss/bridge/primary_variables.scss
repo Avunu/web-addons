@@ -227,8 +227,7 @@ $o-btns-bs-override: (
 
 $o-btns-bs-outline-override: (
     // cds--btn--tertiary
-    "primary":
-        (
+    "primary": (
             background: transparent,
             border: $c-button-tertiary,
             color: $c-button-tertiary,
@@ -241,8 +240,7 @@ $o-btns-bs-outline-override: (
         ),
     // Read at compile time by dropdown.scss, button_box.scss and
     // statusbar_field.scss, so getting it right themes those for free.
-    "secondary":
-        (
+    "secondary": (
             background: transparent,
             border: $c-border-subtle,
             color: $c-text-primary,

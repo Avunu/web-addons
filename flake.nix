@@ -10,11 +10,11 @@
     # `nix flake update` moves them; follow it with `odoo project relock`.
     # Generated from the addons' `depends`: keep it in step with them.
     ocb = {
-      url = "github:OCA/OCB/18.0";
+      url = "github:OCA/OCB/19.0";
       flake = false;
     };
     oca-web = {
-      url = "github:OCA/web/18.0";
+      url = "github:OCA/web/19.0";
       flake = false;
     };
     # >>> odoo-nix: inputs (managed) >>>

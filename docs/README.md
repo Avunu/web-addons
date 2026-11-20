@@ -6,7 +6,7 @@ description:
 ---
 
 An IBM Carbon Design System theme for the Odoo backend, in light and dark, with
-per-company brand colours. It is an Odoo 18.0 module built and maintained by
+per-company brand colours. It is an Odoo 19.0 module built and maintained by
 [Avunu LLC](https://avunu.net) for our own client work and published for anyone to use.
 The repository extends [OCA/web](https://github.com/OCA/web): the theme builds on that
 repository's `web_responsive` and `web_dark_mode` rather than duplicating them.
@@ -21,22 +21,21 @@ Each module's README explains why it exists and how it works.
 
 ## Branches
 
-`develop` is the default branch and the one pull requests go to. Its code targets Odoo
-18.0, the series named in `.odoo-series`. `18.0` follows `develop` automatically (a
-workflow fast-forwards it after every push) and is the branch to install or pin. When a
-newer Odoo series is maintained, it gets its own branch (`19.0`, …) and changes flow up
-to it from `develop`.
+Each maintained Odoo series has its own branch (`18.0`, `19.0`), and pull requests go to
+the series they are for. This branch targets Odoo 19.0, the series named in
+`.odoo-series`. A release is a tag, `web_theme_carbon-19.0.x.y.z`, with the addon's zip
+and wheel attached to its GitHub release.
 
 ## Install
 
-Requires Odoo 18.0 and a PostgreSQL database. Installing a module pulls in the modules
+Requires Odoo 19.0 and a PostgreSQL database. Installing a module pulls in the modules
 it depends on (see below), and those must be on your `addons_path` first.
 
-With a plain Odoo checkout, clone this repository on its `18.0` branch and add it to the
+With a plain Odoo checkout, clone this repository on its `19.0` branch and add it to the
 addons path:
 
 ```sh
-git clone --branch 18.0 https://github.com/Avunu/web-addons.git
+git clone --branch 19.0 https://github.com/Avunu/web-addons.git
 odoo-bin --addons-path=odoo/addons,/path/to/web-addons,<your other addons paths> \
   -d <database> -i web_theme_carbon --stop-after-init
 ```
@@ -47,7 +46,7 @@ and the addons path is regenerated from the folders present (run `direnv reload`
 afterwards):
 
 ```sh
-odoo module add Avunu/web-addons 18.0
+odoo module add Avunu/web-addons 19.0
 ```
 
 OCA dependencies can be added by module name, which also adds the OCA repository that
@@ -57,7 +56,7 @@ holds them: `odoo module add web_responsive web_dark_mode`.
 
 Each module's `__manifest__.py` is the source of truth. Besides the Odoo core module
 `web`, `web_theme_carbon` depends on the following. The OCA repository listed is the
-18.0 branch; clone it, along with whatever its modules need in turn (their own manifests
+19.0 branch; clone it, along with whatever its modules need in turn (their own manifests
 list it).
 
 | Module             | Needs from OCA or others                                                     | Python packages |
@@ -115,7 +114,7 @@ its README:
 ## Licence
 
 Every module is licensed under the
-[GNU Affero General Public License v3.0 or later](https://github.com/Avunu/web-addons/blob/18.0/LICENSE),
+[GNU Affero General Public License v3.0 or later](https://github.com/Avunu/web-addons/blob/19.0/LICENSE),
 as its `__manifest__.py` also states (`AGPL-3`, Odoo's identifier for version 3).
 
 `web_theme_carbon` vendors the IBM Plex Sans and IBM Plex Mono fonts (SIL Open Font

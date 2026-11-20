@@ -437,16 +437,16 @@
     "oca-web": {
       "flake": false,
       "locked": {
-        "lastModified": 1794149808,
-        "narHash": "sha256-Z7vL2uT+nkiDtd3KCrlFdBvtZFs2Q9LSfT9yzoxMgDE=",
+        "lastModified": 1795107218,
+        "narHash": "sha256-cR01pMsUmwvRKNjLFMsExjeBn8XafCSJ6pk18u08tOs=",
         "owner": "OCA",
         "repo": "web",
-        "rev": "b83bd7ba08e267bb3e8d7b0b3a00d05b354dc020",
+        "rev": "b25d75b921d007006468de68040a622121c0e396",
         "type": "github"
       },
       "original": {
         "owner": "OCA",
-        "ref": "18.0",
+        "ref": "19.0",
         "repo": "web",
         "type": "github"
       }
@@ -454,16 +454,16 @@
     "ocb": {
       "flake": false,
       "locked": {
-        "lastModified": 1793662244,
-        "narHash": "sha256-35gWizsKIG8KSQwKrWEMLtWpRERB1tnbVbOT7WTpCd0=",
+        "lastModified": 1795131035,
+        "narHash": "sha256-oLuk8AnVZfXjRJUp7ZLyf514oPgCy2BnD00mVCxV/b4=",
         "owner": "OCA",
         "repo": "OCB",
-        "rev": "863e15fcbf0c75651d6f3c37bc4431a9cb12ca67",
+        "rev": "347a5ee6261c3e5ef265df5b15094f29e11e41e9",
         "type": "github"
       },
       "original": {
         "owner": "OCA",
-        "ref": "18.0",
+        "ref": "19.0",
         "repo": "OCB",
         "type": "github"
       }
